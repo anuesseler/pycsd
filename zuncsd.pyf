@@ -1,0 +1,46 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module zuncsd ! in 
+    interface  ! in :zuncsd
+       subroutine zuncsd(jobu1,jobu2,jobv1t,jobv2t,trans,signs,m,p,q,x11,ldx11,x12,ldx12,x21,ldx21,x22,ldx22,theta,u1,ldu1,u2,ldu2,v1t,ldv1t,v2t,ldv2t,work,lwork,rwork,lrwork,iwork,info,credit) ! in :zuncsd:zuncsd.f
+         implicit none
+            character optional,intent(in) :: jobu1='Y'
+            character optional,intent(in) :: jobu2='Y'
+            character optional,intent(in) :: jobv1t='Y'
+            character optional,intent(in) :: jobv2t='Y'
+            character optional,intent(in) :: trans='T'
+            character optional,intent(in) :: signs='O'
+            integer intent(in) :: m
+            integer intent(in) :: p
+            integer intent(in) :: q
+            complex*16 dimension(ldx11,q),intent(in,out), depend(ldx11,q) :: x11
+            integer intent(in),depend(p) :: ldx11>=max(1,p)
+            complex*16 dimension(ldx12,m-q),intent(in,out), depend(ldx12,m,q) :: x12
+            integer intent(in),depend(p) :: ldx12>=max(1,p)
+            complex*16 dimension(ldx21,q),intent(in,out), depend(ldx21,q) :: x21
+            integer intent(in),depend(m,p) :: ldx21>=max(1,m-p)
+            complex*16 dimension(ldx22,m-q),intent(in,out), depend(ldx22,m,q) :: x22
+            integer intent(in),depend(m,p) :: ldx22>=max(1,m-p)
+            double precision dimension(min(min(p,m-p),min(q,m-q))),intent(out),depend(p,m,q) :: theta
+            complex*16 dimension(p,p),intent(out),depend(p) :: u1
+            integer intent(in),depend(p) :: ldu1>=max(1,p)
+            complex*16 dimension(m-p,m-p),intent(out),depend(m,p) :: u2
+            integer intent(in),depend(m,p) :: ldu2>=max(1,m-p)
+            complex*16 dimension(q,q),intent(out),depend(q) :: v1t
+            integer intent(in),depend(q) :: ldv1t>=max(1,q)
+            complex*16 dimension(m-q,m-q),intent(out),depend(m,q) :: v2t
+            integer intent(in),depend(m,q) :: ldv2t>=max(1,m-q)
+            complex*16 dimension(abs(lwork)),intent(out),depend(lwork) :: work
+            integer intent(in) :: lwork
+            double precision dimension(abs(lrwork)),intent(out),depend(lrwork) :: rwork
+            integer intent(in) :: lrwork
+            integer dimension(m-min(min(p,m-p),min(q,m-q))),intent(out) :: iwork
+            integer intent(out) :: info
+            integer optional, intent(in) :: credit=0
+        end subroutine cuncsd
+    end interface 
+end python module zuncsd
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/
