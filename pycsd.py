@@ -7,9 +7,7 @@ from numpy.testing import assert_almost_equal
 #-- local imports --------------------------------------------------------------
 import zuncsd as csd
 
-decimals  = 15
-formatter = dict(precision=3, max_line_width=200, suppress_small=True)
-
+#-- user friendly python interface ---------------------------------------------
 def cs_decomp(  X, p, q, 
                 comp_u1=True, comp_u2=True,
                 comp_v1h=True, comp_v2h=True,
