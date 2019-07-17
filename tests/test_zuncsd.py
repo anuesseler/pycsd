@@ -1,5 +1,5 @@
 #-- imports --------------------------------------------------------------------
-import zuncsd as csd
+from builds import zuncsd as csd
 import numpy as np
 
 from numpy.linalg import eigh

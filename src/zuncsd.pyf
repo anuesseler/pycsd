@@ -3,7 +3,7 @@
 
 python module zuncsd ! in 
     interface  ! in :zuncsd
-       subroutine zuncsd(jobu1,jobu2,jobv1t,jobv2t,trans,signs,m,p,q,x11,ldx11,x12,ldx12,x21,ldx21,x22,ldx22,theta,u1,ldu1,u2,ldu2,v1t,ldv1t,v2t,ldv2t,work,lwork,rwork,lrwork,iwork,info,credit) ! in :zuncsd:zuncsd.f
+       subroutine zuncsd(jobu1,jobu2,jobv1t,jobv2t,trans,signs,m,p,q,x11,ldx11,x12,ldx12,x21,ldx21,x22,ldx22,theta,u1,ldu1,u2,ldu2,v1t,ldv1t,v2t,ldv2t,work,lwork,rwork,lrwork,iwork,info) ! in :zuncsd:zuncsd.f
          implicit none
             character optional,intent(in) :: jobu1='Y'
             character optional,intent(in) :: jobu2='Y'
@@ -37,8 +37,7 @@ python module zuncsd ! in
             integer intent(in) :: lrwork
             integer dimension(m-min(min(p,m-p),min(q,m-q))),intent(out) :: iwork
             integer intent(out) :: info
-            integer optional, intent(in) :: credit=0
-        end subroutine cuncsd
+        end subroutine zuncsd
     end interface 
 end python module zuncsd
 
