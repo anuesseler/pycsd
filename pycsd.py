@@ -5,7 +5,7 @@ from numpy.linalg  import eigh
 from numpy.testing import assert_almost_equal
 
 #-- local imports --------------------------------------------------------------
-from builds import zuncsd as csd
+import zuncsd as csd
 
 decimals  = 15
 formatter = dict(precision=3, max_line_width=200, suppress_small=True)
@@ -50,19 +50,15 @@ def cs_decomp(  X, p, q,
     #-- split X and set lapack parameters --------------------------------------
     m = X.shape[0]
 
-    # upper left
     x11   = X[:p,:q]
     ldx11 = p
 
-    # upper right
     x12   = X[:p,q:]
     ldx12 = p
 
-    # lower left
     x21   = X[p:,:q]
     ldx21 = m - p
 
-    # lower right
     x22   = X[p:,q:]
     ldx22 = m - p
 
@@ -120,41 +116,3 @@ def cs_decomp(  X, p, q,
                 signs=signs)
 
     return u1, u2, v1h, v2h, theta
-
-if __name__ == '__main__':
-    
-
-    #-- generate unitary matrix ------------------------------------------------
-    num_modes = 4
-
-    H = np.diag([1.0+0.0j] * (2*num_modes))\
-      + np.diag([0.5+0.0j] * (2*num_modes -1), k=1)\
-      + np.diag([0.5+0.0j] * (2*num_modes - 1), k=-1)
-    D, U = eigh(H)
-
-
-    #-- csd routine ------------------------------------------------------------
-    u1, u2, v1h, v2h, theta = cs_decomp(U, num_modes, num_modes)
-
-
-    #-- check correctness of decomposition -------------------------------------
-    zero = np.zeros((num_modes, num_modes))
-    UD = np.vstack((np.hstack((u1,zero)), np.hstack((zero,u2))))
-    print("UD = \n{}\n".format(np.array_str(UD, **formatter)))
-
-    VDH = np.vstack((np.hstack((v1h,zero)), np.hstack((zero,v2h))))
-    print("VDH = \n{}\n".format(np.array_str(VDH, **formatter)))
-
-    C  = np.diag(np.cos(theta))
-    S  = np.diag(np.sin(theta))
-    CS = np.vstack((np.hstack((C, -S)), np.hstack((S,C))))
-    print("CS = \n{}\n".format(np.array_str(CS, **formatter)))
-
-    print("U = \n{}\n".format(np.array_str(U, **formatter)))
-    print("UD @ CS @ VDH = \n{}\n".format(np.array_str(UD @ CS @ VDH, **formatter)))
-
-    assert_almost_equal(U, UD @ CS @ VDH, decimals)
-
-
-
-
