@@ -6,7 +6,7 @@ setup(
     name='pycsd',
     version='0.1',
     author='Alexander Nuesseler',
-    packages=find_packages(),
+    py_modules=['pycsd'],
     description="Wrapper for LAPACK zuncsd function to compute cosine-sine (CS) decomposition of a partitioned unitary matrix.",
     ext_modules = [ext1]    
 )

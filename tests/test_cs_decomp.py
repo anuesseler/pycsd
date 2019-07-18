@@ -8,7 +8,6 @@ from numpy.testing import assert_almost_equal
 #-- local imports --------------------------------------------------------------
 from pycsd import cs_decomp
 
-formatter = dict(precision=3, max_line_width=200, suppress_small=True)
 decimals  = 14
 
 @pt.mark.parametrize('M, P, Q',
